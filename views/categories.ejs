@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CmnFlix - Categories</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="movies.css">
+  </head> 
+<body>
+  <header class="page-content">
+    <nav>
+      <h1 class="gradient-text">CmnFlix</h1>
+      <div class="end_bx">               
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/movies">Movies</a></li>
+          <li><a href="/shows">Shows</a></li>
+          <li><a href="/categories"   class="active">Categories</a></li>                    
+        </ul>
+        <form action="/search" method="GET" class="search">
+          <input type="text" name="q" placeholder="Search movies & shows..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass" id="search_icon"></i></button>
+        </form>
+        <div class="signin">
+          <% if (user && user.email === 'melkylie8@gmail.com') { %>
+            <a href="/admin"><i class="fa-solid fa-user"></i></a>
+          <% } %>
+          <% if (user) { %>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+          <% } else { %>
+            <a href="/login"><i class="fa-solid fa-user"></i></a>
+          <% } %>
+        </div>
+        <div class="hamburger">
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+        </div>
+      </div>   
+    </nav>
+
+
+    <div class="content">
+      <h1 id="header_title">All Categories...</h1> 
+    </div>
+  </header>
+
+
+  <button id="backToTopBtn" class="back-to-top-btn">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <% genres.forEach(genre => { %>
+    <section style="margin-top: 0px; margin-bottom: -10px;">  
+      <h6 class="s1"><a href="/categories/<%= genre %>" class="arrow"><%= genre %> →</a></h6>
+      <div class="movie-grid">
+        <button class="scroll-arrow scroll-left">&laquo;</button>
+        <button class="scroll-arrow scroll-right">&raquo;</button>
+        <!--movies box strat-->
+        <div class="movie_bx_1 grid" id="mvoes_bx_1">
+          <% previews[genre].forEach(item => { %>
+            <div class="card cord">
+              <div class="image-card">
+                <a href="<%= item.type === 'movie' ? '/movies/' + item.url : '/shows/' + item.url %>"><img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(item.type === 'movie' ? item.poster : item.poster) %>"></a>
+              </div>
+              <div>
+                <h5><%= item.title %></h5>
+              </div> 
+            </div>
+          <% }) %>  
+        </div>
+      </div>
+    </section>
+  <% }) %>
+  
+
+
+<div class="bubble-container">
+  <span class="bub a"></span>
+  <span class="bub b"></span>
+  <span class="bub c"></span>
+  <span class="bub d"></span>
+  <span class="bub e"></span>
+  <span class="bub f"></span>
+  <span class="bub g"></span>
+  <span class="bub h"></span>
+  <span class="bub i"></span>
+  <span class="bub j"></span>
+  <span class="bub k"></span>
+  <span class="bub l"></span>
+  <span class="bub m"></span>
+</div>
+
+
+<button id="backToTopBtn" class="back-to-top-btn">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+
+<footer>
+  <h1 class="gradient-text"><a href="/">CmnFlix</a></h1>
+  <p>&copy; 2025 MmFlix. All rights reserved</p>
+</footer>
+
+<script src="/script.js"></script>
+<script src="/movies.js"></script>
+</body>
+</html>

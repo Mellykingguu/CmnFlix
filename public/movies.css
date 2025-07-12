@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Long+Cang&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+*{
+    margin: 0;
+    padding: 0; 
+}
+::-webkit-scrollbar{
+    width: 8px;
+}
+::-webkit-scrollbar-thumb{
+    background: lime;
+    border-radius: 8px;
+}
+body{
+    background-color: black;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    overflow-x: hidden;
+}
+
+
+header{
+    background: url('/Home/wicked - Cool.jpg')no-repeat center center/cover; 
+}
+header .content {
+    width: 82%;     
+    text-align: center;
+} 
+header .content h1 {
+    background-image: linear-gradient(to right, white,lime);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;  
+    background-clip: text; 
+    color: transparent;
+}
+.video-container-load{    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.register-container{
+    width: 100%;
+    background-color: black;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.register-container .register{  
+    display: flex;
+    justify-content: space-between;  
+    max-width: 768px;
+    width: 100%;
+    height: auto;
+    padding: 40px 20px;    
+    border-radius: 30px;
+    box-shadow: 0 2px 4px lime;
+}
+.register-container .register form {
+    background:transparent;
+    padding-right: 20px;
+    align-self: center;
+    width: 70%;
+    border-radius: 30px;
+} 
+.register-container .register form h1{
+    font-size: 3rem;
+    color: limegreen;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    display: none;
+} 
+.links{
+    display: flex; 
+    justify-content:center;
+}
+.register-container .register form p{
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;    
+}
+.register-container .register form .phrase{
+    display: none;
+}
+.register-container .register form a{
+    color: limegreen;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+.register-container .register form a:hover{
+    color: white
+}
+.register-container .register label {
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid lime;
+    border-radius: 30px;
+    background-color: transparent;
+    box-sizing: border-box;
+    margin-bottom: 6px;
+    color: white;
+    font-size: 14px;
+}
+.register-container .register form button{
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    background-color: limegreen;
+    transition: .3s ease;
+    margin-top: 12px;
+}
+.register-container .register form button:hover{
+    background-color: white;
+    color: limegreen;
+}
+.register-container .register .sign{
+    width: 30%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.register-container .register .sign h1{
+    font-size: 3rem;
+    color: limegreen;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+}
+.register-container .register .sign p{
+    font-size: 12px;
+}
+.register-container .register .sign a{
+    color: limegreen;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+.register-container .register .sign a:hover{
+    color: white
+}
+.iti__selected-flag {
+    color: limegreen !important; /* Change flag background */
+}
+.iti__country-list {
+    background-color: white !important; /* Change background color to black */
+    border: none !important; /* Change country list border */
+    border-radius: 10px !important; /* Change country list background */
+    color: black;
+}
+.iti__country {
+    color: limegreen; /* Change text color to lime green */
+    font-size: 14px;
+}
+/* Optional: Change the hover color for better visibility */
+.iti__country:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Lighten on hover */
+}
+.message {
+    text-align: center;
+    font-size: 14px;
+}
+.icon {
+    font-size: 50px;
+    color: limegreen;
+    margin-bottom: 20px;
+    border: 2px solid lime;
+    border-radius: 50%;
+    padding: 20px;
+    font-family: 'Dancing Script', cursive;
+}
+
+
+
+/*//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+/////////////////////////////////////////
+//////////////////////////////////////*/
+@media(max-width: 650.8px){    
+    .register-container .register .sign{
+        display: none;
+    }
+    .register-container .register form{
+        width: 100%;
+        padding-right: 0px;
+    }    
+    .register-container .register form h1{
+        display: block;
+    } 
+    .register-container .register form p{
+        display: block;
+    }
+    .links{
+        justify-content:space-between;
+    }
+    .register-container .register form .phrase{
+        display: block;
+    }
+}
+
+
+
+/*//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+/////////////////////////////////////////
+//////////////////////////////////////*/
+@media(max-width: 450.8px){  
+    .register-container{
+        padding: 30px 10px;
+    }
+    .register-container .register{  
+        padding: 10px;    
+    }
+    input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 5px 8px;
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+
+}
+
+
+
+/*//////////////////////////////////////////
+//////////////////////////////////////////
+//////////////////////////////////////////
+/////////////////////////////////////////
+//////////////////////////////////////*/
+@media(max-width: 350.8px){  
+    .register-container .register form .flipping{
+        display: block;           
+    } 
+    .register-container .register form .flipping .flip1{
+        width: 100%;
+    }
+    .register-container .register form .flipping .flip2{
+        width: 100%;
+        padding-left: 0px;
+        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .register-container .register form .flipping .flip2 img{
+        width: 180px;
+        height: 200px;    
+        display: flex;
+        justify-content: center;
+    }
+    .national{
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+@media(max-width: 319.8px){
+    body{
+        display: none;
+    }
+}

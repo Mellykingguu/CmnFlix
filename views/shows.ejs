@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CmnFlix - Shows</title> 
+    <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="movies.css">
+</head>
+<body> 
+  <header class="page-content"> 
+    <nav>
+      <h1 class="gradient-text">CmnFlix</h1>
+      <div class="end_bx">               
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/movies">Movies</a></li>
+          <li><a href="/shows" class="active">Shows</a></li>
+          <li><a href="/categories">Categories</a></li>                    
+        </ul>
+        <form action="/search" method="GET" class="search">
+          <input type="text" name="q" placeholder="Search movies & shows..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass" id="search_icon"></i></button>
+        </form>
+        <div class="signin">
+          <% if (user && user.email === 'melkylie8@gmail.com') { %>
+            <a href="/admin"><i class="fa-solid fa-user"></i></a>
+          <% } %>
+          <% if (user) { %>
+              <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+            <% } else { %>
+              <a href="/login"><i class="fa-solid fa-user"></i></a>
+          <% } %>
+        </div>    
+        <div class="hamburger">
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+        </div>
+      </div>   
+    </nav>
+
+
+    <div class="content">
+      <h1 id="header_title">All Shows</h1> 
+    </div>
+  </header>
+
+
+  <button id="backToTopBtn" class="back-to-top-btn">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+ 
+
+ <div class="page-main">
+    <div class="page-container">
+        <div class="page">
+            <% series.forEach((serie, index) => { %>
+                <div class="card">
+                    <a href="/shows/<%= serie.url %>">
+                        <img src="<%= showPosters[index] %>">
+                        <div class="content">
+                            <h5><%= serie.title %></h5>
+                            <h6>
+                                <span><%= serie.years %></span>
+                                <div class="rate">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <i class="fa-solid fa-eye"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <h6><%= serie.rate.toFixed(1) %></h6>
+                                </div>
+                            </h6>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>  
+
+
+  <div class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="/shows?page=<%= currentPage - 1 %>">&laquo; Prev</a>
+      <% } %>
+      
+          <% 
+          const maxPagesToShow = 6;
+          const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+          const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+      
+          if (startPage > 1) { %>
+            <% if (startPage > 2) { %>
+                <a href="/shows?page=1">1<span class="ellipsis">...</span></a>
+              <% } else { %>
+                <a href="/shows?page=1">1</a>
+              <% } %>
+          <% } %>
+      
+          <% for (let i = startPage; i <= endPage; i++) { %>
+            <a href="/shows?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+          <% } %>
+      
+          <% if (endPage < totalPages) { %>
+            <% if (endPage < totalPages - 1) { %>
+              <a href="/shows?page=<%= totalPages %>"><span class="ellipsis">...</span><%= totalPages %></a>
+            <% } %>
+            
+          <% } %>
+      
+          <% if (currentPage < totalPages) { %>
+            <a href="/shows?page=<%= currentPage + 1 %>">Next &raquo;</a>
+          <% } %>
+    </div>
+
+
+
+  <footer>
+    <h1 class="gradient-text"><a href="/">CmnFlix</a></h1>
+    <p>&copy; 2025 CmnFlix. All rights reserved</p>
+  </footer>
+  <script src="/script.js"></script>
+  <script src=/Movies.js></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+.video-container-load{
+    width: 100%;
+    background-color: black;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.video-container-load .signin{
+    position: absolute; 
+    top: 20px; 
+    right: 0;  
+}
+.video-container-load .signin i{
+    font-size: 16px;
+    border: 1px solid white;
+    padding: 6px;
+    border-radius: 50%;
+    color: white;
+    transition: .3s ease;
+}
+.video-container-load .signin i:hover{
+    border: 1px solid lime;
+    color: limegreen;
+}
+.video-container-load img{
+    width: 210px;
+    height: 270px;
+    border-radius: 30px;
+    transition: 1s ease;
+    box-shadow: 0 2px 4px rgb(0, 255, 0, 0.7);
+}
+.video-container-load h4{
+    font-family: 'Dancing Script', cursive;
+    margin-top: 5px;
+}
+header .content .btns {
+    display: flex;
+    align-items: center;
+}
+/*button work*/
+.video-container-load a {
+    margin-right: 10px; 
+    font-size: 12px;
+    text-decoration: none;
+    padding: 8px 16px;
+    transition: 0.6s ease ;
+    border-radius: 20px;
+}
+.video-container-load #captcha-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.video-container-load #captcha-form button{
+    background-color: limegreen;
+    color: white;
+    padding: 4px 6px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    transition: .3s linear;
+    font-size: 14px;
+}
+.video-container-load #captcha-form button:hover{
+    color: limegreen;
+    background-color: white;    
+}
+.video-container-load #captcha-form input{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    outline: none;
+    border: 1px solid lime;
+    background: transparent;
+    color: white;
+    padding: 2px;
+    transition: .3s linear;
+    -webkit-transition: 1s linear;
+    width: 150px;
+}

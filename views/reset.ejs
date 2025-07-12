@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cmn - Reset</title> 
+        <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/movies.css">
+    </head>
+<body>
+    <div class="register-container">
+        <div class="register">
+            <form id="resetPasswordForm">
+                <h1>Reset Password</h1>
+
+                <input type="hidden" id="token" value="<%= token %>">
+
+                <!-- Sign-up Information Section -->
+                <label for="password">New Password:</label>
+                <input type="password" id="newPassword" required>  
+
+                <label for="password">Confirm Password:</label>
+                <input type="password" id="confirmPassword" required>               
+                <button type="submit">Reset Password</button>                
+                
+                <p style="color: red;" id="message"></p>
+            </form>
+        
+            <div class="sign">
+                <h1>Reset Password</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('resetPasswordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const token = document.getElementById('token').value;
+
+            if (newPassword !== confirmPassword) {
+                document.getElementById('message').innerText = "Passwords do not match.";
+                return;
+            }
+
+            const response = await fetch('/reset-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ newPassword, token })
+            });
+            
+            
+            if (response.ok) {
+                // Redirect to the login page on success
+                window.location.href = '/login';
+            } else {
+                const result = await response.json();
+                document.getElementById('message').innerText = result.message || result.error;
+            }
+        });
+    </script>
+</body>
+</html>

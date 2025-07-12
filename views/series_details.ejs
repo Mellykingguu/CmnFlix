@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CmnFlix - <%= series.title %></title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body> 
+
+  <header id="header">
+    <nav>
+      <h1 class="gradient-text">CmnFlix</h1>
+      <div class="end_bx">               
+        <ul>
+          <li><a href="/" class="menu">Home</a></li>
+          <li><a href="/movies" class="menu">Movies</a></li>
+          <li><a href="/shows" class="active">Shows</a></li>
+          <li><a href="/categories" class="menu">Categories</a></li>                    
+        </ul>
+        <form action="/search" method="GET" class="search">
+          <input type="text" name="q" placeholder="Search movies & shows..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass menu" id="search_icon"></i></button>
+        </form>
+        <div class="signin">
+          <% if (user && user.email === 'melkylie8@gmail.com') { %>
+            <a href="/admin"><i class="fa-solid fa-user menu"></i></a>
+            <i class="fa-solid fa-rectangle-list text-container menu"></i>
+          <% } %>
+          <% if (user) { %>
+              <a href="/logout"><i class="fa-solid fa-right-from-bracket icon menu"></i></a>
+            <% } else { %>
+              <a href="/login"><i class="fa-solid fa-user icon menu"></i></a>
+          <% } %>
+        </div>    
+        <div class="hamburger">
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+        </div>
+      </div>   
+    </nav> 
+
+
+    <div class="content">     
+      <h5>Duration: <span id="header_dur"><%= series.duration %></span></h5>
+      <h5 id="header_gen"><span style="color:lime; font-size: 15px;"><%= series.rating %> </span><i class="fa-solid fa-star"></i><%= series.rate.toFixed(1) %><strong> <%= series.genres %></strong></h5>
+      <h1 id="header_title"><%= series.title %></h1>
+      <p id="header_pra"><%= series.description %></p>
+      <h6 id="header_gen"><strong>Release Date: </strong><span><%= series.release_date %> <%= series.country %></span></h6>
+      <h6 id="header_gen"><strong>Creator: </strong><span><%= series.creator %></span></h3>
+      <h6 id="header_gen"><strong>Cast: </strong><span><%= series.cast %></span></h6>
+    </div>
+  </header>
+
+
+  <div class="movie-grid" style="z-index: 1000; height: 330px;">
+    <button class="scroll-arrow scroll-left">&laquo;</button>
+    <button class="scroll-arrow scroll-right">&raquo;</button>
+    <!--movies box strat-->
+    <div class="movie_bx_1 grid" id="mvoes_bx_1">
+      <% seasons.forEach(season => { %>
+      <div class="card">
+        <div class="image-card">
+          <a href="/shows/<%= series.url %>/S<%= season.unique_id %>"><img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(season.poster) %>"></a>
+        </div>
+        <div>
+          <h5>Season <%= season.season_number %></h5>
+        </div>
+      </div>
+      <% }); %>
+    </div>        
+  </div>    
+    
+
+  <div class="item-section">
+    <div class="trailer-box">
+      <div class="b1">
+        <h2 class="s1">Trailer</h2>
+      </div>
+      <main>
+        <section class="Trailer" style="margin-top: 0px;">
+          <div id="trailer-section">
+            <iframe width="560" height="315" src="https://youtube.com/embed/<%= series.trailer %>" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+          </div>
+        </section>
+      </main>
+    
+    
+      <div class="b1">        
+        <h2 class="s1">Similar Shows</h2>
+      </div>
+      <div class="movie-grid" style="z-index: 1000; height: 330px;">
+        <button class="scroll-arrow scroll-left">&laquo;</button>
+        <button class="scroll-arrow scroll-right">&raquo;</button>
+        <!--movies box strat-->
+        <div class="movie_bx_1 grid sg" id="mvoes_bx_1">
+          <% similarSeries.forEach(similar => { %>
+          <div class="card cord">
+            <div class="image-card">
+              <a href="/shows/<%= similar.url %>"><img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(similar.poster) %>"></a>
+            </div>
+            <div>
+              <h5><%= similar.title %></h5>
+            </div> 
+          </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  
+    <div class="review-box">
+      <div class="b1">        
+          <h2 class="s1">Reviews <span id="total-reviews">(<%= reviews.length %>)</span></h2>
+      </div>
+      <div class="review-container">
+          <div class="review">
+              <div class="review-list" id="review-list">
+                  <% reviews.forEach(review => { %>
+                      <div class="li" id="review-<%= review.id %>">
+                          <img src="/Home/default-profile.jpg" class="pf_d">
+                          <div class="user-info">
+                              <div>
+                                  <strong><%= review.user_name %></strong>
+                                  <div><%= review.content %></div>
+                              </div>
+                              <% if (userIp === review.ip_address) { %>
+                                  <span class="delete-review" data-review-id="<%= review.id %>">x</span>
+                              <% } %>
+                          </div>
+                      </div>
+                  <% }) %>
+              </div>
+              
+              
+              <!-- Confirmation Popup -->
+              <div id="confirmation-popup" class="confirmation-popup" style="display:none;">
+                  <p>Are you sure you want to delete this review?</p>                        
+                  <button id="cancel-delete">X</button>
+                  <button id="confirm-delete" class="confirm-delete"><i class="fa-solid fa-trash"></i></button>
+              </div>
+          </div>
+
+          
+          <form id="review-form" class="review-form">
+              <div class="character-count">Characters: <span id="char-count">0</span>/200</div>                     
+              <input type="text" id="review-user-name" placeholder="username" required />
+              <textarea id="review-text" placeholder="Write review.." required></textarea>
+              <button type="button" id="submit-review"><i class="fa-solid fa-paper-plane"></i></button>
+
+
+              <div id="error-popup" class="modal">
+                  <div class="modal-content">
+                      <span id="close-popup" class="close">&times;</span>
+                      <p id="error-message"></p>
+                  </div>
+              </div>
+          </form>
+          
+      </div>
+  </div>
+  </div>
+  
+
+  <footer>
+    <h1 class="gradient-text"><a href="/">CmnFlix</a></h1>
+    <p>&copy; 2025 CmnFlix. All rights reserved</p>
+  </footer>
+
+
+  <div class="popup-box">
+    <p class="buttonClose" id="buttonClose">x</p>
+    <% if (user && user.email === 'melkylie8@gmail.com') { %>
+      <form action="/admin/series/<%= series.id %>" method="POST">
+        <input type="text" name="series_id" value="<%= series.id %>" required />
+        <input type="text" name="title" value="<%= series.title %>" required />
+        <input type="text" name="url" value="<%= series.url %>" required />
+        <input type="text" name="file_title" value="<%= series.file_title %>" required />
+        <input type="text" name="poster" value="<%= series.poster %>" required />
+        <input type="text" name="bg_poster" value="<%= series.bg_poster %>" required />
+        <input type="text" name="duration" value="<%= series.duration %>" required />
+        <input type="text" name="rating" value="<%= series.rating %>"/>
+        <input type="text" name="years" value="<%= series.years %>"/>
+        <input type="text" name="genres" value="<%= series.genres %>" required />
+        <input type="number" name="rate" value="<%= series.rate %>" required step="0.1" placeholder="Rate (e.g 9.0)">
+        <textarea name="cast"><%= series.cast %></textarea>
+        <textarea name="description"><%= series.description %></textarea>
+        <input type="text" name="release_date" value="<%= series.release_date %>" required />
+        <input type="text" name="country" value="<%= series.country %>" />
+        <input type="text" name="creator" value="<%= series.creator %>" />
+        <input type="text" name="trailer" value="<%= series.trailer %>" required />
+        <input type="text" name="position" value="<%= series.position %>" required />
+        <input type="text" name="color" value="<%= series.color %>" required />
+        <input type="number" name="trending" value="<%= series.trending %>" required />
+        <button type="submit">Update Show</button>
+      </form>
+      <button id="deleteSeriesButton">Delete Series</button>
+    <% } %>
+  </div>
+
+
+  <!-- Confirmation Popup -->
+  <div id="deleteSeriesConfirmation" class=" delete" style="display: none;">
+    <p>Are you sure you want to delete this series?</p>
+    <button id="confirmDeleteSeries" class=" delete-yes">Yes</button>
+    <button id="cancelDeleteSeries" class=" delete-no">No</button>
+  </div>
+  
+  <script src="/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      let header = document.getElementById('header');
+      header.style.background = "url('https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(series.bg_poster) %>') no-repeat center <%= series.position %>"; 
+      header.style.backgroundSize = 'cover';  
+    
+      // Select all elements with class 'menu'
+      let menuItems = document.querySelectorAll('.menu');
+    
+      menuItems.forEach(function(item) {
+        item.style.color = '<%= series.color %>'; // Change color for all menu items
+
+        // Change color on mouse enter
+        item.addEventListener('mouseenter', function() {
+          item.style.color = 'lime';
+        });
+
+        // Change color back on mouse leave
+        item.addEventListener('mouseleave', function() {
+          item.style.color = '<%= series.color %>'; // Reset to default
+        });
+      });
+    });
+
+    ////error for submit buton
+    const textContainer = document.querySelector('.text-container');
+    const popupBox = document.querySelector('.popup-box');
+    const buttonClose = document.querySelector('.buttonClose')
+    const overlay = document.querySelector('.overlay');
+        
+    textContainer.addEventListener('click', () => {
+      popupBox.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+        
+    buttonClose.addEventListener('click', () => {
+      popupBox.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+
+
+    document.getElementById('deleteSeriesButton').onclick = function() {
+      document.getElementById('deleteSeriesConfirmation').style.display = 'block';
+    };
+
+    document.getElementById('cancelDeleteSeries').onclick = function() {
+      document.getElementById('deleteSeriesConfirmation').style.display = 'none';
+    };
+
+    document.getElementById('confirmDeleteSeries').onclick = function() {
+      const seriesId = '<%= series.id %>'; // Get the series ID dynamically
+      window.location.href = `/admin/series/delete/${seriesId}`; // Redirect to delete route
+    };
+  </script>
+<script>
+  const reviewText = document.getElementById('review-text');
+  const submitReviewButton = document.getElementById('submit-review');
+  const reviewList = document.getElementById('review-list');
+  const totalReviewsSpan = document.getElementById('total-reviews');
+  const confirmationPopup = document.getElementById('confirmation-popup');
+  const charCountDisplay = document.getElementById('char-count');
+  let reviewIdToDelete = null; // Store the ID of the review to delete
+
+  reviewText.addEventListener('input', () => {
+    const currentLength = reviewText.value.length;
+    charCountDisplay.textContent = `${currentLength}/240`;
+  });
+
+  function showError(message) {
+    const errorMessageElement = document.getElementById('error-message');
+    errorMessageElement.textContent = message; // Set the error message
+    errorMessageElement.style.display = 'block'; // Show the error message
+  }
+
+  submitReviewButton.addEventListener('click', async () => {
+    const reviewContent = reviewText.value.trim();
+    const userName = document.getElementById('review-user-name').value.trim();
+    const movieId = null;
+    const seriesId = '<%= series.id %>';
+      
+    // Clear previous error messages
+    document.getElementById('error-message').style.display = 'none';
+
+    // Validate input
+    if (!userName || !reviewContent) {
+      showError('Name and review content are required.');
+      return;
+    }
+
+    if (reviewContent.length > 240) {
+      showError('Review cannot exceed 240 characters.');
+      return; // Prevent submission if over limit
+    }
+
+    // Send the review to the server
+    const response = await fetch('/submit-review', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        content: reviewContent,
+        userName: userName,
+        movieId: movieId,
+        seriesId: seriesId
+      })
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      // Clear fields
+      reviewText.value = '';
+      document.getElementById('review-user-name').value = '';
+      charCountDisplay.textContent = '0/240';
+
+      // Reload the page to reflect the updated review count
+      location.reload();
+    } else {
+      alert('Failed to submit review. Please try again.');
+    }
+  });
+
+
+  // Delete review logic
+  document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete-review')) {
+      reviewIdToDelete = event.target.dataset.reviewId; // Get review ID
+      confirmationPopup.style.display = 'block'; // Show the confirmation popup
+    }
+  });
+
+  // Confirm delete
+  document.getElementById('confirm-delete').addEventListener('click', async () => {
+    if (reviewIdToDelete) {
+      const response = await fetch(`/delete-review/${reviewIdToDelete}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        // Remove the review from the UI
+        const reviewElement = document.getElementById(`review-${reviewIdToDelete}`);
+        reviewElement.remove();
+
+        // Update the total reviews count
+        const totalCount = parseInt(totalReviewsSpan.textContent.match(/\d+/)[0]) - 1;
+        totalReviewsSpan.textContent = `(${totalCount} reviews)`;
+
+        // Reload the page to reflect the changes
+        location.reload();
+      }
+      confirmationPopup.style.display = 'none'; // Hide the popup
+    }
+
+    // Reload the page to reflect the changes
+    location.reload();
+  });
+
+  // Cancel delete
+  document.getElementById('cancel-delete').addEventListener('click', () => {
+    confirmationPopup.style.display = 'none'; // Hide the popup
+    reviewIdToDelete = null; // Reset the review ID
+  });
+</script>
+</body>
+</html>

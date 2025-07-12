@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cmn - Admin</title> 
+        <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="/admin.css">
+      </head>
+<body>
+    <div class="register-container">
+        <div class="links">
+            <% if (user && user.email === 'melkylie8@gmail.com') { %>
+            <a href="/"><i class="fa-solid fa-user"></i></a>
+           <% } %>
+        </div>
+
+        <form action="/admin/movie" method="POST">
+            <h1>Movies</h1>
+                
+                <input type="text" name="title" required placeholder="Title">                        
+                <input type="text" name="url" required placeholder="URL">                      
+                <input type="text" name="file_title" required placeholder="File Title">                        
+                <input type="text" name="poster" required placeholder="Poster">               
+                <input type="text" name="bg_poster" required placeholder="Backdrop">                
+                <input type="text" name="duration" required placeholder="Duration">                      
+                <input type="text" name="rating" required placeholder="Rating (e.g. PG-13)">
+                <input type="number" name="year" required placeholder="Year">
+                <input type="text" name="genres" required placeholder="Genres (e.g. Action / Comedy)">
+                <input type="number" name="rate" required step="0.1" placeholder="Rate (e.g 9.0)">
+                <textarea name="cast" placeholder="Cast"></textarea>
+                <textarea name="description" placeholder="Description"></textarea>                
+                <input type="text" name="release_date" placeholder="Release Date (February 12)">
+                <input type="text" name="country" placeholder="Country">
+                <input type="text" name="director" required placeholder="Director">
+                <input type="text" name="trailer" placeholder="Trailer">
+                <input type="text" name="position" value="center">
+                <input type="text" name="color" value="white">
+
+
+                <button type="submit">Insert</button>
+                <% if (error) { %>
+                    <div style="color: red; text-align: center; font-size: 14px; margin-top: 6px;"><%= error %></div>
+                <% } %> 
+                <% if (message) { %>
+                    <div style="color: green; text-align: center; font-size: 14px; margin-top: 6px;"><%= message %></div>
+                <% } %> 
+        </form>
+
+
+        <form action="/admin/series" method="POST">
+                <h1>Series</h1>
+                
+                <input type="text" name="title" required placeholder="Title">                        
+                <input type="text" name="url" required placeholder="URL">                      
+                <input type="text" name="file_title" required placeholder="File Title">                        
+                <input type="text" name="poster" required placeholder="Poster">               
+                <input type="text" name="bg_poster" required placeholder="Backdrop">                
+                <input type="text" name="duration" required placeholder="Duration">                      
+                <input type="text" name="rating" required placeholder="Rating (e.g. PG-13)">
+                <input type="text" name="years" required placeholder="Years (e.g., 2020-2023)">
+                <input type="text" name="genres" required placeholder="Genres (e.g. Action / Comedy)">
+                <input type="number" name="rate" required step="0.1" placeholder="Rate (e.g 9.0)">
+                <textarea name="cast" required placeholder="Cast"></textarea>
+                <textarea name="description" required placeholder="Description"></textarea>                
+                <input type="text" name="release_date" required placeholder="Release Date (February 12, 2003)">
+                <input type="text" name="country" placeholder="Country">
+                <input type="text" name="creator" required placeholder="Creator">
+                <input type="text" name="trailer" placeholder="Trailer">
+                <input type="text" name="position" value="center" checked>
+                <input type="text" name="color" value="white">
+               
+
+                <button type="submit">Insert</button>
+                <% if (error) { %>
+                    <div style="color: red; text-align: center; font-size: 14px; margin-top: 6px;"><%= error %></div>
+                <% } %> 
+                <% if (message) { %>
+                    <div style="color: green; text-align: center; font-size: 14px; margin-top: 6px;"><%= message %></div>
+                <% } %> 
+        </form>
+
+
+        <form action="/admin/seasons" method="POST">
+                <h1>Seasons</h1>
+                
+                <input type="number" name="series_id" required placeholder="Series ID">
+                <input type="number" name="season_number" required placeholder="Season Number">
+                <input type="text" name="poster" required placeholder="Poster">               
+                <input type="text" name="bg_poster" required placeholder="Backdrop">
+                <input type="text" name="release_date" required placeholder="Release Date (February 12, 2003)">  
+                <textarea name="season_description" required placeholder="Season Description"></textarea>
+                <input type="text" name="trailer" placeholder="Trailer">
+                <input type="text" name="color" value="white">
+                
+                <button type="submit">Insert</button>
+                <% if (error) { %>
+                    <div style="color: red; text-align: center; font-size: 14px; margin-top: 6px;"><%= error %></div>
+                <% } %> 
+                <% if (message) { %>
+                    <div style="color: green; text-align: center; font-size: 14px; margin-top: 6px;"><%= message %></div>
+                <% } %> 
+        </form>
+
+
+        <form action="/admin/episodes" method="POST">
+                <h1>Episodes</h1>
+                
+                <input type="number" name="season_id" required placeholder="Season ID">
+                <input type="text" name="title" placeholder="Episode Title">
+                <input type="text" name="file_title" placeholder="File Title">
+                <input type="number" name="rate" required step="0.1" placeholder="Rate (0.0 - 10.0)">
+                <textarea name="description" placeholder="Episode Description"></textarea>
+               <input type="number" name="episode_number" required placeholder="Episode Number">
+               <input type="text" name="release_date" placeholder="Release Date (YYYY-MM-DD)">
+                
+                <button type="submit">Insert</button>
+                <% if (error) { %>
+                    <div style="color: red; text-align: center; font-size: 14px; margin-top: 6px;"><%= error %></div>
+                <% } %> 
+                <% if (message) { %>
+                    <div style="color: green; text-align: center; font-size: 14px; margin-top: 6px;"><%= message %></div>
+                <% } %> 
+        </form>
+
+
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CmnFlix - <%= series.title %> - S<%= season.season_number %>E<%= episode.episode_number %></title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">    
+</head>
+<body> 
+
+
+  <header id="header">
+        <nav>
+            <h1 class="gradient-text">CmnFlix</h1>
+            <div class="end_bx">               
+                <ul>
+                    <li><a href="/" class="menu">Home</a></li>
+                    <li><a href="/movies" class="menu">Movies</a></li>
+                    <li><a href="/shows" class="active">Shows</a></li>
+                    <li><a href="/categories" class="menu">Categories</a></li>                    
+                </ul>
+                <form action="/search" method="GET" class="search">
+                  <input type="text" name="q" placeholder="Search movies & shows..." />
+                  <button type="submit"><i class="fa-solid fa-magnifying-glass menu" id="search_icon"></i></button>
+              </form>
+              <div class="signin">
+                <% if (user && user.email === 'melkylie8@gmail.com') { %>
+                  <a href="/admin"><i class="fa-solid fa-user menu"></i></a>
+                  <i class="fa-solid fa-rectangle-list text-container menu"></i>
+                <% } %>
+                <% if (user) { %>
+                    <a href="/logout"><i class="fa-solid fa-right-from-bracket icon menu"></i></a>
+                  <% } else { %>
+                    <a href="/login"><i class="fa-solid fa-user icon menu"></i></a>
+                <% } %>
+              </div>    
+              <div class="hamburger">
+                <div class="hamburger-icon"></div>
+                <div class="hamburger-icon"></div>
+                <div class="hamburger-icon"></div>
+              </div>
+            </div>   
+        </nav>
+
+
+
+    <div class="content"> 
+      <h5>Duration: <span id="header_dur"><%= series.duration %></span></h5>
+      <h5 id="header_gen"><span style="color:lime; font-size: 15px;"><%= series.rating %> </span><i class="fa-solid fa-star"></i><%= episode.rate.toFixed(1) %><strong> <%= series.genres %></strong></h5>
+      <h1 id="header_title"><%= series.title %> <span class="s2">S<span style="font-size: 14px;"><%= season.season_number %></span>E<span style="font-size: 14px;"><%= episode.episode_number %></span></span></h1>
+      <p id="header_pra"><%= episode.description %></p>
+      <h6 id="header_gen"><strong>Release Date: </strong><span><%= episode.release_date %> <%= series.country %></span></h6>
+      <h6 id="header_gen"><strong>Creator: </strong><span><%= series.creator %></span></h6>
+      <h6 id="header_gen"><strong>Cast: </strong><span><%= series.cast %></span></h6>
+      <div class="btns" id="header_btns">
+        <a href="/shows/<%= series.url %>/S<%= season.unique_id %>/E<%= episode.unique_id %>/download" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+        <a href="/shows/<%= series.url %>/S<%= season.unique_id %>/E<%= episode.unique_id %>/play" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>            
+    </div>
+    </div>
+  </header>
+
+
+    
+  <div class="b1">
+    <h2 class="s1">Trailer</h2>
+  </div>
+  <main>
+    <section class="Trailer" style="margin-top: 0px;">
+      <div id="trailer-section">
+        <iframe width="560" height="315" src="https://youtube.com/embed/<%= season.trailer %>" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+      </div>
+    </section>
+  </main>
+
+
+  
+  <footer>
+    <h1 class="gradient-text"><a href="/">CmnFlix</a></h1>
+    <p>&copy; 2025 CmnFlix. All rights reserved</p>
+  </footer>
+
+
+  <div class="popup-box">
+    <p class="buttonClose" id="buttonClose">x</p>
+    <% if (user && user.email === 'melkylie8@gmail.com') { %>
+      <form action="/admin/episodes/<%= episode.id %>" method="POST">
+        <input type="hidden" name="seriesUrl" value="<%= series.url %>" required />
+        <input type="number" name="season_id" value="<%= episode.season_id %>" required />
+        <input type="text" name="title" value="<%= episode.title %>" />
+        <input type="text" name="file_title" value="<%= episode.file_title %>" />
+        <input type="number" name="rate" value="<%= episode.rate %>" required step="0.1" placeholder="Rate (e.g. 9.0)" />
+        <textarea name="description"><%= episode.description %></textarea>
+        <input type="number" name="episode_number" value="<%= episode.episode_number %>" required />
+        <input type="text" name="release_date" value="<%= episode.release_date %>" required />
+        <input type="hidden" name="unique_id" value="<%= episode.unique_id %>" required />
+        <button type="submit">Update Episode</button>
+      </form>
+      <button id="deleteEpisodeButton">Delete Episode</button>
+    <% } %>
+  </div>
+
+
+  <!-- Confirmation Popup -->
+  <div id="deleteEpisodeConfirmation" class=" delete" style="display: none;">
+    <p>Are you sure you want to delete this episode?</p>
+    <button id="confirmDeleteEpisode" class=" delete-yes">Yes</button>
+    <button id="cancelDeleteEpisode" class=" delete-no">No</button>
+  </div>
+
+
+  <script src="/script.js"></script>
+  <script>
+    // Ensure the script runs after the DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      let header = document.getElementById('header');
+      header.style.background = "url('https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(season.bg_poster) %>')no-repeat center <%= season.position %>"; 
+      header.style.backgroundSize = 'cover';  
+    
+      // Select all elements with class 'menu'
+      let menuItems = document.querySelectorAll('.menu');
+    
+      menuItems.forEach(function(item) {
+        item.style.color = '<%= season.color %>'; // Change color for all menu items
+
+        // Change color on mouse enter
+        item.addEventListener('mouseenter', function() {
+          item.style.color = 'lime';
+        });
+
+        // Change color back on mouse leave
+        item.addEventListener('mouseleave', function() {
+          item.style.color = '<%= season.color %>'; // Reset to default
+        });
+      });
+    });
+
+
+
+    ////error for submit buton
+    const textContainer = document.querySelector('.text-container');
+    const popupBox = document.querySelector('.popup-box');
+    const buttonClose = document.querySelector('.buttonClose')
+    const overlay = document.querySelector('.overlay');
+        
+    textContainer.addEventListener('click', () => {
+      popupBox.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+        
+    buttonClose.addEventListener('click', () => {
+      popupBox.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+
+    document.getElementById('deleteEpisodeButton').onclick = function() {
+      document.getElementById('deleteEpisodeConfirmation').style.display = 'block';
+    };
+
+    document.getElementById('cancelDeleteEpisode').onclick = function() {
+      document.getElementById('deleteEpisodeConfirmation').style.display = 'none';
+    };
+
+    document.getElementById('confirmDeleteEpisode').onclick = function() {
+      const episodeId = '<%= episode.id %>'; // Get the episode ID dynamically
+      const seriesUrl = '<%= series.url %>'; // Get the series URL dynamically
+      window.location.href = `/admin/episodes/delete/${episodeId}?seriesUrl=${seriesUrl}`; // Redirect to delete route
+    };
+  </script>
+</body>
+</html>

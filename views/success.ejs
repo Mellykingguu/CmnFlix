@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Success</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="movies.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="icon"><i class="fa-solid fa-check"></i></div>
+    
+    <div class="message"><%= message %></div>
+
+    <script>
+        // Remove message after a few seconds or on reload
+        setTimeout(() => {
+            window.location.href = '/register'; // Redirect to registration page
+        }, 10000); // Change to desired timeout duration
+    </script>
+</body>
+</html>

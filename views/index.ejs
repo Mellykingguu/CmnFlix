@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CmnFlix - Home</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">    
+</head>
+<body>
+    
+    <header> 
+        <nav>
+            <h1 class="gradient-text">CmnFlix</h1>
+            <div class="end_bx">               
+                <ul>
+                    <li><a href="/"  class="active">Home</a></li>
+                    <li><a href="/movies">Movies</a></li>
+                    <li><a href="/shows">Shows</a></li>
+                    <li><a href="/categories">Categories</a></li>
+                    
+                </ul> 
+                <form action="/search" method="GET" class="search">
+                    <input type="text" name="q" placeholder="Search movies & shows..." />
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass" id="search_icon"></i></button>
+                </form>
+                <div class="signin">
+                    <% if (user && user.email === 'melkylie8@gmail.com') { %>
+                        <a href="/admin"><i class="fa-solid fa-user"></i></a>
+                    <% } %>
+                    <% if (user) { %>
+                        <a href="/logout"><i class="fa-solid fa-right-from-bracket icon"></i></a>
+                      <% } else { %>
+                        <a href="/login"><i class="fa-solid fa-user icon"></i></a>
+                    <% } %>
+                </div>
+                <div class="hamburger">
+                    <div class="hamburger-icon"></div>
+                    <div class="hamburger-icon"></div>
+                    <div class="hamburger-icon"></div>
+                </div>
+            </div>   
+        </nav> 
+
+
+        <div class="content">
+            <h5>Duration: <span id="header_dur">2h 46m</span></h5>
+            <h5 id="header_gen"><span style="color:lime;">PG-13 </span> <i class="fa-solid fa-star"></i>8.5 <strong> Action / Adventure / Drama / Sci-Fi</strong></h5>
+            <h1 id="header_title">Dune: Part Two</h1>
+            <p id="header_pra">Paul Atreides unites with Chani and the Fremen while seeking revenge against the conspirators who destroyed his family. Facing a choice between the love of his life and the fate of the universe, he must prevent a terrible future only he can foresee.</p>
+            <h6 id="header_gen1"><strong>Release Date: </strong><span>February 28, 2024 (Italy)</h6>
+            <h6 id="header_gen2"><strong>Director: </strong><span>Denis Villeneuve</span></h6>
+            <h6 id="header_gen3"><strong>Cast: </strong><span>Timothée Chalamet, Zendaya, Austin Butler, Florence Pugh, Léa Seydoux, Rebecca Ferguson, Javier Bardem, Stellan Skarsgård, Christopher Walken</span></h3>
+            <div class="btns" id="header_btns">
+                <a href="" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                <a href="" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>                               
+            </div>
+        </div>
+        
+
+        <div class="slider_btns">
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+            <h6 class="slider"></h6>
+        </div>
+    </header>
+
+
+    <!--trending box-->
+    <div class="tranding_bx">
+        <a href="#"><i class="fa-solid fa-fire"></i> Trending<span></span></a>
+        <a href="#"><i class="fa-solid fa-star"></i> Popular<span></span></a>        
+        <a href="#"><i class="fa-solid fa-plus"></i>Latest<span></span></a>
+        <a href="#"><i class="fa-solid fa-angles-up"></i> Staff Picks<span></span></a>
+        <a href="#"><i class="fa-solid fa-angles-up"></i> Nostalgia<span></span></a>
+    </div>
+
+
+    <!--welcome box-->
+    <div class="welcome">
+        <h4 class="wlcm">Welcome to, <small class="gradient-text">CmnFlix</small></h4>
+        <p>Discover, Watch and Download your favorite Movies & TV shows in high quality!</p>
+    </div>
+
+
+    <button id="backToTopBtn" class="back-to-top-btn">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+
+    <!--bubble container-->
+    <div class="bubble-container">
+        <span class="bub a"></span>
+        <span class="bub b"></span>
+        <span class="bub c"></span>
+        <span class="bub d"></span>
+        <span class="bub e"></span>
+        <span class="bub f"></span>
+        <span class="bub g"></span>
+        <span class="bub h"></span>
+        <span class="bub i"></span>
+        <span class="bub j"></span> 
+        <span class="bub k"></span>
+        <span class="bub l"></span>
+        <span class="bub m"></span>
+    </div>
+
+
+    <section class="begin">  
+        <h6 class="s1"><i class="fa-solid fa-fire"></i> Trending</a></h6>
+        <div class="movie-grid">
+            <button class="scroll-arrow scroll-left">&laquo;</button>
+            <button class="scroll-arrow scroll-right">&raquo;</button>
+            <!--movies box strat-->
+            <div class="movie_bx_1 grid" id="mvoes_bx_1">                
+                <% trending.forEach(movie => { %>
+                    <div class="card cord">
+                        <div class="image-card">
+                            <a href="<%= movie.type === 'movie' ? '/movies/' + movie.url : '/shows/' + movie.url %>"><img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(movie.type === 'movie' ? movie.poster : movie.poster) %>"></a>
+                        </div>
+                        <div>
+                            <h5><%= movie.title %></h5>
+                        </div> 
+                    </div>
+                <% }) %>   
+                <a href="/trending" class="arrow">→</a>
+            </div>
+        </div>
+    </section> 
+
+         
+    <section style="margin-top: -10px;">  
+        <h6 class="s1"><i class="fa-solid fa-star"></i> Popular</a></h6>
+        <div class="movie-grid">
+            <button class="scroll-arrow scroll-left">&laquo;</button>
+            <button class="scroll-arrow scroll-right">&raquo;</button>
+            <!--movies box strat-->
+            <div class="movie_bx_1 grid" id="mvoes_bx_1">                
+                <% popular.forEach(movie => { %>
+                    <div class="card cord">
+                        <div class="image-card">
+                            <a href="<%= movie.type === 'movie' ? '/movies/' + movie.url : '/shows/' + movie.url %>"><img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(movie.type === 'movie' ? movie.poster : movie.poster) %>"></a>
+                        </div>
+                        <div>
+                            <h5><%= movie.title %></h5>
+                        </div> 
+                    </div>
+                <% }) %>  
+                <a href="/popular" class="arrow">→</a>  
+            </div>
+        </div>
+    </section>
+       
+
+    <section style="margin-top: -10px;">  
+        <h6 class="s1"><i class="fa-solid fa-plus"></i> Latest</a></h6>
+        <div class="movie-grid">
+            <button class="scroll-arrow scroll-left">&laquo;</button>
+            <button class="scroll-arrow scroll-right">&raquo;</button>
+            <!--movies box strat-->
+            <div class="movie_bx_1 grid" id="mvoes_bx_1">                
+                <% latest.forEach(movie => { %>
+                    <div class="card cord">
+                        <div class="image-card">
+                            <a href="<%= movie.type === 'movie' ? '/movies/' + movie.url : '/shows/' + movie.url %>"><img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(movie.type === 'movie' ? movie.poster : movie.poster) %>"></a>
+                        </div>
+                        <div>
+                            <h5><%= movie.title %></h5>
+                        </div> 
+                    </div>
+                <% }) %>  
+                <a href="/latest" class="arrow">→</a>   
+            </div>
+        </div>
+    </section>
+
+    
+     
+    <footer>
+        <h1 class="gradient-text"><a href="/">CmnFlix</a></h1>
+        <p>&copy; 2025 CmnFlix. All rights reserved</p>
+    </footer>
+    
+    <script src="/script.js"></script>
+    <script> 
+        //FUNCTIONAL 
+        let header_dur = document.getElementById('header_dur');
+        let header_gen = document.getElementById('header_gen');
+        let header_title = document.getElementById('header_title');
+        let header_pra = document.getElementById('header_pra');
+        let header_gen1 = document.getElementById('header_gen1');
+        let header_gen2 = document.getElementById('header_gen2');
+        let header_gen3 = document.getElementById('header_gen3');
+        let header = document.getElementsByTagName('header')[0];
+        let slider_btn = document.getElementsByClassName('slider');
+        
+
+        const slider_load = () => {
+            setTimeout(() => {
+                header.style.background = "url('/Home/wicked.jpg')no-repeat center center/cover"; 
+                header_dur.innerHTML = "2h 40m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>8.1<span> Musical / Fantasy / Romance</span>`
+                header_title.innerHTML = "Wicked";
+                header_pra.innerHTML = "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>November 27, 2024 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Jon M. Chu</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Cynthia Erivo, Ariana Grande, Jeff Goldblum, Michelle Yeoh, Jonathan Bailey, Ethan Slater, Marissa Bode, Peter Dinklage, Andy Nyman</span>`;
+                header_btns.innerHTML = `
+                    <a href="/movies/Wicked" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/movies/Wicked" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                    slider_btn[0].style.background =  "lime";
+                    slider_btn[1].style.background =  "rgb(0, 255, 0, .3)";
+                    slider_btn[9].style.background =  "rgb(0, 255, 0, .3)";              
+            }, 0);
+            setTimeout(() => {
+                header.style.background = "url('/Home/Mufasa The Lion King.jpg')no-repeat center center/cover";
+                header_dur.innerHTML = "1h 58m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>7.6<span> Animation / Adventure / Family / Musical / Drama</span>`
+                header_title.innerHTML = "Mufasa: The Lion King";
+                header_pra.innerHTML = "Lost and alone, orphaned cub Mufasa meets a sympathetic lion named Taka, the heir to a royal bloodline. The chance meeting sets in motion an expansive journey of an extraordinary group of misfits searching for their destinies";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>December 18, 2024 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Barry Jenkins</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Aaron Pierre, Kelvin Harrison Jr., Tiffany Boone, Kagiso Lediga, Preston Nyman, Blue Ivy Carter, John Kani, Mads Mikkelsen, Seth Rogen</span>`;
+                header_btns.innerHTML = `
+                    <a href="/movies/Mufasa.The.Lion.King" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/movies/Mufasa.The.Lion.King" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[0].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[1].style.background =  "lime";               
+            }, 7000);            
+            setTimeout(() => {
+                header.style.background = "url('/Home/Abbott Elementary.jpg')no-repeat center center/cover"; 
+                header_dur.innerHTML = "22m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>8.1<span> Comedy</span>`
+                header_title.innerHTML = "Abbott Elementary";
+                header_pra.innerHTML = "A workplace comedy centered around a group of dedicated teachers - and an oblivious principal - in a Philadelphia public school where, despite the odds stacked against them, they are determined to help their students succeed in life.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>December 7, 2021 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Quinta Brunson</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Quinta Brunson, Janelle James, Tyler James Williams, Sheryl Lee Ralph, Chris Perfetti, Lisa Ann Walter, William Stanford Davis, Zuri Adele, Ava Coleman</span>`;
+                header_btns.innerHTML = `
+                    <a href="/shows/Abbott.Elementary" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/shows/Abbott.Elementary" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[1].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[2].style.background =  "lime";                
+                
+            }, 14000);
+            setTimeout(() => {
+                header.style.background = "url('/Home/Nosferatu.jpg')no-repeat center center/cover"; 
+                header_dur.innerHTML = "2h 12m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>7.6<span> Horror / Mystery / Drama / Fantasy</span>`
+                header_title.innerHTML = "Nosferatu";
+                header_pra.innerHTML = "A reimagining of the classic horror tale, this film follows Count Orlok, a vampire who terrorizes a small town. As his presence grows, the townspeople must confront their fears and the dark history that surrounds Orlok, leading to a chilling confrontation between the living and the undead.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>December 25, 2024 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Robert Eggers, Bram Stoker</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Nicholas Hoult, Bill Skarsgård, Lily-Rose Depp, Aaron Taylor-Johnson, Emma Corrin, Willem Dafoe, Ralph Ineson, Simon McBurney, Adéla Hesová</span>`;
+                header_btns.innerHTML = `
+                    <a href="/movies/Nosferatu" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/movies/Nosferatu" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[2].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[3].style.background =  "lime";  
+            }, 21000);
+            setTimeout(() => {
+                header.style.background = "url('/Home/Silo.jpg')no-repeat center center/cover";     
+                header_dur.innerHTML = "50m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>8.4<span> Action / Adventure / Drama</span>`
+                header_title.innerHTML = "Silo";
+                header_pra.innerHTML = "After the death of their father, two siblings fight for the throne, thereby causing a civil war known as the Dance of the Dragons.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>May 5, 2023 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Graham Yost</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Rebecca Ferguson, Rashida Jones, Common, David Oyelowo, Tim Robbins, Harriet Walter, Iain Glen, Chinaza Uche, Alex Hassell</span>`;
+                header_btns.innerHTML = `
+                    <a href="/shows/Silo" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/shows/Silo" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[3].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[4].style.background =  "lime";                  
+            }, 28000);
+            setTimeout(() => {
+                header.style.background = "url('/Home/bridgerton.jpg')no-repeat center center/cover";   
+                header_dur.innerHTML = "1h";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>7.3<span> Drama / Romance</span>`
+                header_title.innerHTML = "Bridgerton";
+                header_pra.innerHTML = "Set in Regency-era London, Bridgerton chronicles the lives and romantic entanglements of the Bridgerton family."   
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>December 25, 2020 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Chris Van Dusen</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Phoebe Dynevor, Regé-Jean Page, Nicola Coughlan, Jonathan Bailey, Luke Newton, Claudia Jessie, Golda Rosheuvel, Julie Andrews (voice), Ruth Gemmell</span>`;
+                header_btns.innerHTML = `
+                    <a href="/shows/Bridgerton" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/shows/Bridgerton" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[4].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[5].style.background =  "lime";                
+            }, 35000);
+            setTimeout(() => {
+                header.style.background = "url('/Home/Deadpool and Wolverine.jpg')no-repeat center center/cover";   
+                header_dur.innerHTML = "2h 8m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>7.7<span> Action / Adventure / Comedy / Sci-Fi</span>`
+                header_title.innerHTML = "Deadpool and Wolverine";
+                header_pra.innerHTML = "Deadpool's peaceful existence comes crashing down when the Time Variance Authority recruits him to help safeguard the multiverse. He soon unites with his would-be pal, Wolverine, to complete the mission and save his world from an existential threat.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>July 25, 2024 (Australia)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Shawn Levy</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Ryan Reynolds, Leslie Uggams, Hugh Jackman, Emma Corrin, Dafne Keen, Channing Tatum, Chris Evans, Jennifer Garner, Wesley Snipes</span>`;
+                header_btns.innerHTML = `
+                    <a href="/movies/Deadpool.and.Wolverine" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/movies/Deadpool.and.Wolverine" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[5].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[6].style.background =  "lime";           
+            }, 42000);            
+            setTimeout(() => {
+                header.style.background = "url('/Home/Family Guy.jpg')no-repeat center center/cover";
+                header_dur.innerHTML = "22m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>8.2<span> Animation / Comedy</span>`
+                header_title.innerHTML = "Family Guy";
+                header_pra.innerHTML = "This animated sitcom follows the dysfunctional Griffin family in the fictional town of Quahog, Rhode Island. With absurd humor and satirical commentary, the show parodies American culture through the outrageous antics of Peter Griffin and his family.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>February 28, 2024 (Italy)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Denis Villeneuve</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Cynthia Erivo, Ariana Grande, Jeff Goldblum, Michelle Yeoh, Jonathan Bailey, Ethan Slater, Marissa Bode, Peter Dinklage, Andy Nyman</span>`;
+                header_btns.innerHTML = `
+                    <a href="/shows/Family.Guy" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/shows/Family.Guy" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[6].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[7].style.background =  "lime";               
+            }, 49000);
+            setTimeout(() => {
+                header.style.background = "url('/Home/2 Broke Girls.jpg')no-repeat center center/cover";   
+                header_dur.innerHTML = "22m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>6.6<span> Comedy</span>`
+                header_title.innerHTML = "2 Broke Girls";
+                header_pra.innerHTML = "Set in the bustling borough of Brooklyn; Max and Caroline, two girls in their mid-twenties, work at a Brooklyn restaurant as waitresses. Together, they dream of starting up their cupcake business, but always find themselves without money.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>September 19, 2011 (USA)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Michael Patrick King, Whitney Cummings</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Kat Dennings, Beth Behrs, Garrett Morris, Jennifer Coolidge, Matthew Moy, Nick Zano, Jonathan Kite, Riki Lindhome, Edna B. Haynes</span>`;
+                header_btns.innerHTML = `
+                    <a href="/shows/2.Broke.Girls" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/shows/2.Broke.Girls" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[7].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[8].style.background =  "lime";            
+            }, 56000);
+            setTimeout(() => {
+                header.style.background = "url('/Home/Jujutsu Kaisen.jpg')no-repeat center center/cover"; 
+                header_dur.innerHTML = "24m";
+                header_gen.innerHTML = `<i class="fa-solid fa-star"></i>8.5<span> Animation / Anime / Fantasy / Action</span>`
+                header_title.innerHTML = "Jujutsu Kaisen";
+                header_pra.innerHTML = "This anime series follows Yuji Itadori, a high school student who becomes involved in the world of curses after ingesting a powerful cursed object. He joins a secret organization of jujutsu sorcerers to battle malevolent spirits, uncovering dark secrets and forming bonds with his allies.";
+                header_gen1.innerHTML = `<strong>Release Date: </strong><span>October 3, 2020 (Japan)`;
+                header_gen2.innerHTML = `<strong>Director: </strong><span>Gege Akutami</span>`;
+                header_gen3.innerHTML = `<strong>Cast: </strong><span>Junya Enoki, Adam McArthur, Nobunaga Shimazaki, Yuichi Nakamura, Tomokazu Seki, Kazuya Nakai, Yoshitsugu Matsuoka, Takahiro Sakurai, Miwa Matsumoto</span>`;
+                header_btns.innerHTML = `
+                    <a href="/shows/Jujutsu.Kaisen" class="d-btn"><i class="fa-solid fa-download"></i> Download</a>
+                    <a href="/shows/Jujutsu.Kaisen" class="w-btn"><i class="fa-solid fa-play"></i> Play</a>
+                    ` 
+                slider_btn[8].style.background =  "rgb(0, 255, 0, .3)";
+                slider_btn[9].style.background =  "lime";              
+            }, 63000);           
+        }
+        
+        setInterval(slider_load, 70000);
+        slider_load();
+    </script>
+</body>
+</html>

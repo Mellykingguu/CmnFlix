@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CmnFlix - <%= movie.title %></title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/video.css">
+</head>
+<body>
+    <div class="video-container-load">
+        <div class="signin">
+            <% if (user && user.email === 'melkylie8@gmail.com') { %>
+                <a href="/admin"><i class="fa-solid fa-user"></i></a>
+            <% } %>
+            <% if (user) { %>
+                <a href="/logout"><i class="fa-solid fa-right-from-bracket icon"></i></a>
+              <% } else { %>
+                <a href="/login"><i class="fa-solid fa-user icon"></i></a>
+            <% } %>
+        </div>    
+
+        <img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(movie.poster) %>" alt="">
+        <h4><%=movie.title %> (<%=movie.year %>)</h4>
+
+        <% if (captchaAnswered) { %>
+            <div id="captcha-feedback">✔ Captcha answered correctly!</div>
+        <% } else { %>
+            <form id="captcha-form">
+                <label><%= captchaQuestion %></label>
+                <div>
+                    <input type="text" id="captcha-answer" required>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <div id="captcha-feedback"></div>
+        <% } %>
+    </div>
+
+    <script>
+        document.getElementById('captcha-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            const userAnswer = document.getElementById('captcha-answer').value;
+    
+            // Submit the captcha answer
+            const response = await fetch('/movies/<%= movie.url %>/play/captcha', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answer: userAnswer, captchaAnswer: <%= captchaAnswered ? 'null' : captchaAnswer %> })
+            });
+    
+            if (response.ok) {
+                document.getElementById('captcha-feedback').innerHTML = '✔ Captcha answered correctly!';
+                document.getElementById('captcha-form').style.display = 'none'; // Hide input form
+            } else {
+                const errorData = await response.json();
+                document.getElementById('captcha-feedback').innerHTML = `<div style="color: red; font-size: 13px">${errorData.error}</div>`;
+                // Optionally, clear the input field
+                document.getElementById('captcha-answer').value = '';
+            }
+        });
+    </script>
+</body>
+</html>

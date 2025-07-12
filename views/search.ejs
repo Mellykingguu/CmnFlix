@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CmnFlix - Search</title> 
+  <link rel="icon" type="image/png" sizes="32x32" href="/Home/favicon-32x32.png">
+    <link rel="icon" href="/Home/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/fontawesome-free-6.4.2-web/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="movies.css">
+</head>
+<body>  
+  <header class="page-content"> 
+    <nav>
+      <h1 class="gradient-text">CmnFlix</h1>
+      <div class="end_bx">               
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/movies">Movies</a></li>
+          <li><a href="/shows">Shows</a></li>
+          <li><a href="/categories">Categories</a></li>                    
+        </ul>
+        <form action="/search" method="GET" class="search">
+          <input type="text" name="q" placeholder="Search movies & shows..." />
+          <button type="submit"><i class="fa-solid fa-magnifying-glass" id="search_icon"></i></button>
+        </form>
+        <div class="signin">
+          <% if (user && user.email === 'melkylie8@gmail.com') { %>
+            <a href="/admin"><i class="fa-solid fa-user"></i></a>
+          <% } %>
+          <% if (user) { %>
+              <a href="/logout"><i class="fa-solid fa-right-from-bracket "></i></a>
+            <% } else { %>
+              <a href="/login"><i class="fa-solid fa-user"></i></a>
+          <% } %>
+        </div>    
+        <div class="hamburger">
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+          <div class="hamburger-icon"></div>
+        </div>
+      </div>   
+    </nav>
+
+    <div class="content">
+      <h1 id="header_title">Search Results</h1>
+      <p id="header_pra" style="text-align: center; width: 100%; font-size: 11px;">"<%= query %>"</p> 
+    </div>
+  </header>
+
+
+  <button id="backToTopBtn" class="back-to-top-btn">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  
+  <div class="search-container">
+    <div class="search-results">
+      <% if (results.length > 0) { %>
+        <% results.forEach(item => { %>
+          <% if (item.type === 'movie') { %> 
+            <a href="/movies/<%= item.url %>" class="search-card">
+              <img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(item.poster) %>">
+              <div class="des3">
+                <h3><%= item.title %></h3>
+                <div class="des2">
+                  <p>Duration: <%= item.duration %> </p>
+                  <p><span style="color: limegreen; font-size: 11px;"><%= item.rating %> </span><i class="fa-solid fa-star"></i> <%= item.rate.toFixed(1) %> <%= item.genres %></p>
+                </div>
+                <p class="des"><%= item.description %></p>            
+              </div>        
+            </a>
+          <% } else { %>
+            <a href="/shows/<%= item.url %>" class="search-card">
+              <img src="https://f005.backblazeb2.com/file/CmnFlix/<%= encodeURIComponent(item.poster) %>">
+              <div class="des3">
+                <h3><%= item.title %></h3>
+                <div class="des2">
+                  <p>Duration: <%= item.duration %></p>
+                  <p><i class="fa-solid fa-star"></i> <%= item.rate.toFixed(1) %> <%= item.genres %></p>
+                </div>
+                <p class="des"><%= item.description %></p>
+              </div>
+            </a>
+          <% } %>
+        <% }) %>
+      <% } else { %>
+        <p>No Results found.</p>
+      <% } %>
+    </div>
+  </div>
+
+  
+  <div class="bubble-container">
+    <span class="bub a"></span>
+    <span class="bub b"></span>
+    <span class="bub c"></span>
+    <span class="bub d"></span>
+    <span class="bub e"></span>
+    <span class="bub f"></span>
+    <span class="bub g"></span>
+    <span class="bub h"></span>
+    <span class="bub i"></span>
+    <span class="bub j"></span> 
+    <span class="bub k"></span>
+    <span class="bub l"></span>
+    <span class="bub m"></span>
+  </div>
+
+  
+  <footer>
+    <h1 class="gradient-text"><a href="/">CmnFlix</a></h1>
+    <p>&copy; 2025 CmnFlix. All rights reserved</p>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script src=/Movies.js></script>
+</body>
+</html>
